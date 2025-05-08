@@ -4,7 +4,11 @@
   "type": "symfony-bundle",
   "license": "MIT",
   "require": {
-    "php": "^8.1"
+    "php": "^8.1",
+    "doctrine/orm": "^3.0",
+    "doctrine/dbal": "^4.0",
+    "doctrine/doctrine-bundle": "^2.13",
+    "symfony/http-kernel": "^6.4"
   },
   "autoload": {
     "psr-4": {
