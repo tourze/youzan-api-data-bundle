@@ -196,4 +196,4 @@ class DailyStats
     {
         return $this->updateTime;
     }
-} 
+}

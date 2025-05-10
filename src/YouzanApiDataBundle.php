@@ -13,7 +13,6 @@ class YouzanApiDataBundle extends Bundle implements BundleDependencyInterface
     {
         return [
             \YouzanApiBundle\YouzanApiBundle::class => ['all' => true],
-            \AppBundle\AppBundle::class => ['all' => true],
         ];
     }
-} 
+}

@@ -59,7 +59,7 @@ class DailyStatsRepository extends ServiceEntityRepository
     {
         $endDay = (int)date('Ymd');
         $startDay = (int)date('Ymd', strtotime("-{$days} days"));
-        
+
         return $this->findByDateRange($account, $shop, $startDay, $endDay);
     }
 
@@ -73,4 +73,4 @@ class DailyStatsRepository extends ServiceEntityRepository
             'currentDay' => $currentDay
         ]);
     }
-} 
+}
