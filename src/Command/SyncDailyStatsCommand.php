@@ -124,7 +124,7 @@ class SyncDailyStatsCommand extends Command
             $this->entityManager->flush();
             $output->writeln(sprintf('<info>账号 %s 数据同步完成</info>', $account->getName()));
 
-        } catch (\Exception $e) {
+        } catch  (\Throwable $e) {
             $output->writeln(sprintf('<error>账号 %s 数据同步失败: %s</error>', $account->getName(), $e->getMessage()));
         }
     }
