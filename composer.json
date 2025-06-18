@@ -18,7 +18,6 @@
     "symfony/http-kernel": "^6.4",
     "symfony/yaml": "^6.4 || ^7.1",
     "tourze/bundle-dependency": "0.0.*",
-    "tourze/doctrine-indexed-bundle": "0.0.*",
     "tourze/doctrine-timestamp-bundle": "0.0.*",
     "tourze/easy-admin-attribute": "0.1.*",
     "tourze/youzan-api-bundle": "0.0.*",
