@@ -18,8 +18,6 @@ class YouzanApiDataBundleTest extends TestCase
     public function testGetBundleDependencies(): void
     {
         $dependencies = YouzanApiDataBundle::getBundleDependencies();
-        
-        $this->assertIsArray($dependencies);
         $this->assertArrayHasKey(YouzanApiBundle::class, $dependencies);
         $this->assertEquals(['all' => true], $dependencies[YouzanApiBundle::class]);
     }

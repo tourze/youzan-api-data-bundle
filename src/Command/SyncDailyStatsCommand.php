@@ -49,7 +49,7 @@ class SyncDailyStatsCommand extends Command
         $accounts = [];
         if ($accountId !== null) {
             $account = $this->accountRepository->find($accountId);
-            if (!$account) {
+            if ($account === null) {
                 $output->writeln(sprintf('<error>账号 %s 不存在</error>', $accountId));
                 return Command::FAILURE;
             }
@@ -102,7 +102,7 @@ class SyncDailyStatsCommand extends Command
             foreach ($response['data'] as $item) {
                 // 获取对应的店铺对象
                 $shop = $shopMap[$item['kdt_id']] ?? null;
-                if (!$shop) {
+                if ($shop === null) {
                     $output->writeln(sprintf('<error>找不到店铺 %d</error>', $item['kdt_id']));
                     continue;
                 }

@@ -2,8 +2,6 @@
 
 namespace YouzanApiDataBundle\Tests\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,22 +15,11 @@ class DailyStatsRepositoryTest extends TestCase
 {
     private $managerRegistry;
     private $repository;
-    private $entityRepositoryMock;
 
     protected function setUp(): void
     {
         $this->managerRegistry = $this->createMock(ManagerRegistry::class);
         
-        // 模拟实际仓库
-        $metadata = $this->createMock(ClassMetadata::class);
-        $metadata->expects($this->any())
-            ->method('getName')
-            ->willReturn(DailyStats::class);
-            
-        $this->entityRepositoryMock = $this->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-            
         $this->repository = $this->getMockBuilder(DailyStatsRepository::class)
             ->setConstructorArgs([$this->managerRegistry])
             ->onlyMethods(['findOneBy', 'findBy', 'createQueryBuilder'])
