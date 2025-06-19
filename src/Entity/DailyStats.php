@@ -15,7 +15,7 @@ use YouzanApiDataBundle\Repository\DailyStatsRepository;
 #[ORM\Entity(repositoryClass: DailyStatsRepository::class)]
 #[ORM\Table(name: 'ims_youzan_daily_stats', options: ['comment' => '有赞每日统计数据表'])]
 #[ORM\UniqueConstraint(name: 'uk_account_shop_day', columns: ['account_id', 'shop_id', 'current_day'])]
-class DailyStats
+class DailyStats implements \Stringable
 {
     use TimestampableAware;
     #[ORM\Id]
@@ -31,25 +31,25 @@ class DailyStats
     #[ORM\JoinColumn(nullable: false)]
     private Shop $shop;
 
-    #[ORM\Column(type: 'integer', options: ['comment' => '统计日期，格式：YYYYMMDD'])]
+    #[ORM\Column(type: Types::INTEGER, options: ['comment' => '统计日期，格式：YYYYMMDD'])]
     private int $currentDay;
 
-    #[ORM\Column(type: 'integer', options: ['comment' => '访客数'])]
+    #[ORM\Column(type: Types::INTEGER, options: ['comment' => '访客数'])]
     private int $uv = 0;
 
-    #[ORM\Column(type: 'integer', options: ['comment' => '浏览量'])]
+    #[ORM\Column(type: Types::INTEGER, options: ['comment' => '浏览量'])]
     private int $pv = 0;
 
-    #[ORM\Column(type: 'integer', options: ['comment' => '加购人数'])]
+    #[ORM\Column(type: Types::INTEGER, options: ['comment' => '加购人数'])]
     private int $addCartUv = 0;
 
-    #[ORM\Column(type: 'integer', options: ['comment' => '支付订单数'])]
+    #[ORM\Column(type: Types::INTEGER, options: ['comment' => '支付订单数'])]
     private int $paidOrderCnt = 0;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, options: ['comment' => '支付金额，单位：元'])]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['comment' => '支付金额，单位：元'])]
     private string $paidOrderAmt = '0.00';
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2, options: ['comment' => '不含退款的支付金额，单位：元'])]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['comment' => '不含退款的支付金额，单位：元'])]
     private string $excludeCashbackRefundedAmt = '0.00';
 
     public function getId(): ?int
@@ -154,4 +154,15 @@ class DailyStats
     {
         $this->excludeCashbackRefundedAmt = $excludeCashbackRefundedAmt;
         return $this;
-    }}
+    }
+
+    public function __toString(): string
+    {
+        return sprintf(
+            '%s - %s (%d)',
+            $this->account->getName(),
+            $this->shop->getName(),
+            $this->currentDay
+        );
+    }
+}

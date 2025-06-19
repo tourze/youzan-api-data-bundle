@@ -96,14 +96,14 @@ class DailyStatsTest extends TestCase
 
     public function testSetAndGetCreateTime(): void
     {
-        $createTime = new \DateTime();
+        $createTime = new \DateTimeImmutable();
         $this->dailyStats->setCreateTime($createTime);
         $this->assertSame($createTime, $this->dailyStats->getCreateTime());
     }
 
     public function testSetAndGetUpdateTime(): void
     {
-        $updateTime = new \DateTime();
+        $updateTime = new \DateTimeImmutable();
         $this->dailyStats->setUpdateTime($updateTime);
         $this->assertSame($updateTime, $this->dailyStats->getUpdateTime());
     }

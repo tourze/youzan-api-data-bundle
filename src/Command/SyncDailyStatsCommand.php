@@ -15,11 +15,13 @@ use YouzanApiDataBundle\Entity\DailyStats;
 use YouzanApiDataBundle\Repository\DailyStatsRepository;
 
 #[AsCommand(
-    name: 'youzan:sync:daily-stats',
+    name: self::NAME,
     description: '同步有赞店铺每日统计数据',
 )]
 class SyncDailyStatsCommand extends Command
 {
+    protected const NAME = 'youzan:sync:daily-stats';
+
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly YouzanClientService $clientService,
@@ -45,7 +47,7 @@ class SyncDailyStatsCommand extends Command
 
         // 获取需要同步的账号列表
         $accounts = [];
-        if ($accountId) {
+        if ($accountId !== null) {
             $account = $this->accountRepository->find($accountId);
             if (!$account) {
                 $output->writeln(sprintf('<error>账号 %s 不存在</error>', $accountId));
