@@ -12,6 +12,7 @@ use YouzanApiBundle\Entity\Account;
 use YouzanApiBundle\Repository\AccountRepository;
 use YouzanApiBundle\Service\YouzanClientService;
 use YouzanApiDataBundle\Entity\DailyStats;
+use YouzanApiDataBundle\Exception\ApiResponseException;
 use YouzanApiDataBundle\Repository\DailyStatsRepository;
 
 #[AsCommand(
@@ -95,7 +96,7 @@ class SyncDailyStatsCommand extends Command
             ]);
 
             if (!isset($response['data']) || !is_array($response['data'])) {
-                throw new \RuntimeException('API返回数据格式错误');
+                throw new ApiResponseException('API返回数据格式错误');
             }
 
             // 处理返回的数据

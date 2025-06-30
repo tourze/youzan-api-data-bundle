@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\Kernel;
 use YouzanApiBundle\YouzanApiBundle;
 use YouzanApiDataBundle\YouzanApiDataBundle;
 
+/**
+ * @internal
+ */
 class IntegrationTestKernel extends Kernel
 {
     public function registerBundles(): iterable
