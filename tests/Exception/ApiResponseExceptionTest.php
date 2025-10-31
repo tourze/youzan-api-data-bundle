@@ -1,16 +1,21 @@
 <?php
 
-namespace YouzanApiDataBundle\Tests\Unit\Exception;
+namespace YouzanApiDataBundle\Tests\Exception;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitBase\AbstractExceptionTestCase;
 use YouzanApiDataBundle\Exception\ApiResponseException;
 
-class ApiResponseExceptionTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(ApiResponseException::class)]
+final class ApiResponseExceptionTest extends AbstractExceptionTestCase
 {
     public function testApiResponseExceptionIsRuntimeException(): void
     {
         $exception = new ApiResponseException('Test error message');
-        
+
         $this->assertInstanceOf(\RuntimeException::class, $exception);
     }
 
@@ -18,9 +23,9 @@ class ApiResponseExceptionTest extends TestCase
     {
         $message = 'API response error';
         $code = 500;
-        
+
         $exception = new ApiResponseException($message, $code);
-        
+
         $this->assertEquals($message, $exception->getMessage());
         $this->assertEquals($code, $exception->getCode());
     }
@@ -29,7 +34,7 @@ class ApiResponseExceptionTest extends TestCase
     {
         $previousException = new \Exception('Previous error');
         $exception = new ApiResponseException('Current error', 0, $previousException);
-        
+
         $this->assertSame($previousException, $exception->getPrevious());
     }
 }

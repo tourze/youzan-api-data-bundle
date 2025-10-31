@@ -2,27 +2,68 @@
 
 namespace YouzanApiDataBundle\Tests\Entity;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tourze\PHPUnitDoctrineEntity\AbstractEntityTestCase;
 use YouzanApiBundle\Entity\Account;
 use YouzanApiBundle\Entity\Shop;
-use YouzanApiDataBundle\Entity\DailyStats;
+use YouzanApiDataBundle\Entity\DailyStat;
 
-class DailyStatsTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(DailyStat::class)]
+final class DailyStatTest extends AbstractEntityTestCase
 {
-    private DailyStats $dailyStats;
+    private DailyStat $dailyStats;
+
     private Account $account;
+
     private Shop $shop;
+
+    protected function createEntity(): DailyStat
+    {
+        return new DailyStat();
+    }
+
+    /**
+     * 提供属性及其样本值的 Data Provider.
+     *
+     * @return \Generator<string, array{string, mixed}>
+     */
+    public static function propertiesProvider(): \Generator
+    {
+        yield 'currentDay' => ['currentDay', 20230101];
+        yield 'uv' => ['uv', 100];
+        yield 'pv' => ['pv', 200];
+        yield 'addCartUv' => ['addCartUv', 50];
+        yield 'paidOrderCnt' => ['paidOrderCnt', 30];
+        yield 'paidOrderAmt' => ['paidOrderAmt', '1234.56'];
+        yield 'excludeCashbackRefundedAmt' => ['excludeCashbackRefundedAmt', '987.65'];
+        yield 'createTime' => ['createTime', new \DateTimeImmutable()];
+        yield 'updateTime' => ['updateTime', new \DateTimeImmutable()];
+    }
 
     protected function setUp(): void
     {
-        $this->account = $this->createMock(Account::class);
-        $this->shop = $this->createMock(Shop::class);
-        $this->dailyStats = new DailyStats();
+        parent::setUp();
+
+        // 使用 AbstractEntityTest 提供的实体创建方法
+        $this->dailyStats = $this->createEntity();
+
+        // 创建真实的实体对象进行测试
+        $this->account = new Account();
+        $this->account->setName('Test Account');
+        $this->account->setClientId('test-client-id');
+        $this->account->setClientSecret('test-client-secret');
+
+        $this->shop = new Shop();
+        $this->shop->setKdtId(123);
+        $this->shop->setName('Test Shop');
     }
 
     public function testInitialValues(): void
     {
-        $this->assertSame(0, $this->dailyStats->getId());
+        $this->assertNull($this->dailyStats->getId());
         $this->assertSame(0, $this->dailyStats->getUv());
         $this->assertSame(0, $this->dailyStats->getPv());
         $this->assertSame(0, $this->dailyStats->getAddCartUv());
@@ -108,19 +149,26 @@ class DailyStatsTest extends TestCase
         $this->assertSame($updateTime, $this->dailyStats->getUpdateTime());
     }
 
-    public function testFluentInterface(): void
+    public function testSettersWorkCorrectly(): void
     {
-        $result = $this->dailyStats
-            ->setAccount($this->account)
-            ->setShop($this->shop)
-            ->setCurrentDay(20230101)
-            ->setUv(100)
-            ->setPv(200)
-            ->setAddCartUv(50)
-            ->setPaidOrderCnt(30)
-            ->setPaidOrderAmt('1234.56')
-            ->setExcludeCashbackRefundedAmt('987.65');
-        
-        $this->assertSame($this->dailyStats, $result);
+        $this->dailyStats->setAccount($this->account);
+        $this->dailyStats->setShop($this->shop);
+        $this->dailyStats->setCurrentDay(20230101);
+        $this->dailyStats->setUv(100);
+        $this->dailyStats->setPv(200);
+        $this->dailyStats->setAddCartUv(50);
+        $this->dailyStats->setPaidOrderCnt(30);
+        $this->dailyStats->setPaidOrderAmt('1234.56');
+        $this->dailyStats->setExcludeCashbackRefundedAmt('987.65');
+
+        $this->assertSame($this->account, $this->dailyStats->getAccount());
+        $this->assertSame($this->shop, $this->dailyStats->getShop());
+        $this->assertSame(20230101, $this->dailyStats->getCurrentDay());
+        $this->assertSame(100, $this->dailyStats->getUv());
+        $this->assertSame(200, $this->dailyStats->getPv());
+        $this->assertSame(50, $this->dailyStats->getAddCartUv());
+        $this->assertSame(30, $this->dailyStats->getPaidOrderCnt());
+        $this->assertSame('1234.56', $this->dailyStats->getPaidOrderAmt());
+        $this->assertSame('987.65', $this->dailyStats->getExcludeCashbackRefundedAmt());
     }
-} 
+}

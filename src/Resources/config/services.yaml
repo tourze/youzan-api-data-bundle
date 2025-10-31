@@ -8,3 +8,8 @@ services:
     resource: '../../Command/'
   YouzanApiDataBundle\Repository\:
     resource: '../../Repository/'
+  YouzanApiDataBundle\Controller\:
+    resource: '../../Controller/'
+    tags: ['controller.service_arguments']
+  YouzanApiDataBundle\Service\:
+    resource: '../../Service/'

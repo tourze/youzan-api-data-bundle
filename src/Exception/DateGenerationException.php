@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace YouzanApiDataBundle\Exception;
 
-class ApiResponseException extends \RuntimeException
+class DateGenerationException extends \RuntimeException
 {
 }

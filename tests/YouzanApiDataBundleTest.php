@@ -1,24 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace YouzanApiDataBundle\Tests;
 
-use PHPUnit\Framework\TestCase;
-use Tourze\BundleDependency\BundleDependencyInterface;
-use YouzanApiBundle\YouzanApiBundle;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+use Tourze\PHPUnitSymfonyKernelTest\AbstractBundleTestCase;
 use YouzanApiDataBundle\YouzanApiDataBundle;
 
-class YouzanApiDataBundleTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(YouzanApiDataBundle::class)]
+#[RunTestsInSeparateProcesses]
+final class YouzanApiDataBundleTest extends AbstractBundleTestCase
 {
-    public function testBundleImplementsCorrectInterface(): void
-    {
-        $bundle = new YouzanApiDataBundle();
-        $this->assertInstanceOf(BundleDependencyInterface::class, $bundle);
-    }
-
-    public function testGetBundleDependencies(): void
-    {
-        $dependencies = YouzanApiDataBundle::getBundleDependencies();
-        $this->assertArrayHasKey(YouzanApiBundle::class, $dependencies);
-        $this->assertEquals(['all' => true], $dependencies[YouzanApiBundle::class]);
-    }
-} 
+}
