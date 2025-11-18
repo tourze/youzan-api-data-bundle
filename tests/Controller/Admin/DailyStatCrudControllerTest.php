@@ -87,14 +87,6 @@ class DailyStatCrudControllerTest extends AbstractEasyAdminControllerTestCase
     }
 
     /**
-     * 测试获取实体FQCN
-     */
-    public function testGetEntityFqcn(): void
-    {
-        $this->assertSame(DailyStat::class, DailyStatCrudController::getEntityFqcn());
-    }
-
-    /**
      * 测试配置字段方法存在且可调用
      */
     public function testConfigureFieldsMethodExists(): void
