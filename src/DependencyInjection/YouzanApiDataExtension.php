@@ -6,7 +6,7 @@ namespace YouzanApiDataBundle\DependencyInjection;
 
 use Tourze\SymfonyDependencyServiceLoader\AutoExtension;
 
-class YouzanApiDataExtension extends AutoExtension
+final class YouzanApiDataExtension extends AutoExtension
 {
     protected function getConfigDir(): string
     {
